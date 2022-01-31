@@ -1,11 +1,14 @@
 package com.mycompany.article.article.controller.api;
 
 import com.mycompany.article.article.dto.VentesDto;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import static com.mycompany.article.article.utils.Constants.VENTES_ENDPOINT;
 
+import static com.mycompany.article.article.utils.Constants.APP_ROOT;
+import static com.mycompany.article.article.utils.Constants.VENTES_ENDPOINT;
+@Api(APP_ROOT +"/ventes")
 public interface VentesApi {
 
     @PostMapping(VENTES_ENDPOINT + "/create")

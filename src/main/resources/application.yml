@@ -14,7 +14,8 @@ spring:
       ddl-auto: update
       properties:
         hibernate:
-          dialect: org.hibernate.dialect.MySQL5Dialect
+          ejb:
+            interceptor: com.mycompany.article.article.interceptor.Interceptor
 
 server:
   port: 8081

@@ -1,6 +1,7 @@
 package com.mycompany.article.article.controller.api;
 
 import com.mycompany.article.article.dto.EntrepriseDto;
+import io.swagger.annotations.Api;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 import static com.mycompany.article.article.utils.Constants.APP_ROOT;
-
+@Api(APP_ROOT +"/entreprises")
 public interface EntrepriseApi {
 
     @PostMapping(value = APP_ROOT + "/entreprise/create",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
