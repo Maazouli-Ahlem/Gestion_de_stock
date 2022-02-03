@@ -1,10 +1,13 @@
 package com.mycompany.article.article.services.impl;
 
+import com.mycompany.article.article.Repository.CommandeFournisseurRepository;
 import com.mycompany.article.article.Repository.FournisseurRepository;
 import com.mycompany.article.article.dto.FournisseurDto;
 import com.mycompany.article.article.exception.EntityNotFoundException;
 import com.mycompany.article.article.exception.ErrorCodes;
 import com.mycompany.article.article.exception.InvalidEntityException;
+import com.mycompany.article.article.exception.InvalidOperationException;
+import com.mycompany.article.article.model.CommandeClient;
 import com.mycompany.article.article.model.Fournisseur;
 import com.mycompany.article.article.services.FournisseurService;
 import com.mycompany.article.article.validator.FournisseurValidator;
@@ -20,6 +23,8 @@ import java.util.stream.Collectors;
 public class FournisseurServiceImpl implements FournisseurService {
 
     private FournisseurRepository fournisseurRepository;
+    private CommandeFournisseurRepository commandeFournisseurRepository;
+
 
     public FournisseurServiceImpl(FournisseurRepository fournisseurRepository) {
         this.fournisseurRepository = fournisseurRepository;
@@ -59,6 +64,12 @@ public class FournisseurServiceImpl implements FournisseurService {
         if (id == null){
             log.error("Fournisseur ID is null");
             return ;
+        }
+
+        List<CommandeClient> commandeFournisseur = commandeFournisseurRepository.findAllByFournisseurId(id);
+        if (!commandeFournisseur.isEmpty()) {
+            throw new InvalidOperationException("Impossible de supprimer un fournisseur qui a deja des commandes",
+                    ErrorCodes.FOURNISSEUR_ALREADY_IN_USE);
         }
         fournisseurRepository.deleteById(id);
     }

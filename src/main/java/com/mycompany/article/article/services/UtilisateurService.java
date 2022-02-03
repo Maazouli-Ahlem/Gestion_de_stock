@@ -1,6 +1,7 @@
 package com.mycompany.article.article.services;
 
 
+import com.mycompany.article.article.dto.ChangerMotDePasseUtilisateurDto;
 import com.mycompany.article.article.dto.UtilisateurDto;
 
 import java.util.List;
@@ -13,4 +14,11 @@ public interface UtilisateurService {
     List<UtilisateurDto> findAll();
 
     void delete (Integer id);
+
+    UtilisateurDto findByEmail(String email);
+
+    UtilisateurDto changerMotDePasse(ChangerMotDePasseUtilisateurDto dto);
+
+
+
 }

@@ -3,17 +3,12 @@ package com.mycompany.article.article.services.impl;
 import com.mycompany.article.article.Repository.ArticleRepository;
 import com.mycompany.article.article.Repository.LigneVenteRepository;
 import com.mycompany.article.article.Repository.VentesRepository;
-import com.mycompany.article.article.dto.CommandeFournisseurDto;
-import com.mycompany.article.article.dto.LigneVenteDto;
-import com.mycompany.article.article.dto.MvtStkDto;
-import com.mycompany.article.article.dto.VentesDto;
+import com.mycompany.article.article.dto.*;
 import com.mycompany.article.article.exception.EntityNotFoundException;
 import com.mycompany.article.article.exception.ErrorCodes;
 import com.mycompany.article.article.exception.InvalidEntityException;
 import com.mycompany.article.article.exception.InvalidOperationException;
-import com.mycompany.article.article.model.Article;
-import com.mycompany.article.article.model.LigneVente;
-import com.mycompany.article.article.model.Ventes;
+import com.mycompany.article.article.model.*;
 import com.mycompany.article.article.services.MvtStkService;
 import com.mycompany.article.article.services.VentesService;
 import com.mycompany.article.article.validator.VentesValidator;
@@ -22,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -125,6 +121,14 @@ public class VentesServiceImpl implements VentesService {
 
     }
     private void updateMvtStk(LigneVente lig) {
-
+        MvtStkDto mvtStkDto = MvtStkDto.builder()
+                .articlev(ArticleDto.fromEntity(lig.getArticle()))
+                .dateMvt(Instant.now())
+                .typeMvtStk(TypeMvtStk.SORTIE)
+                .sourceMvt(SourceMvtStk.VENTE)
+                .quantite(lig.getQuantite())
+                .idEntreprise(lig.getIdEntreprise())
+                .build();
+        mvtStkService.sortieStock(mvtStkDto);
     }
 }

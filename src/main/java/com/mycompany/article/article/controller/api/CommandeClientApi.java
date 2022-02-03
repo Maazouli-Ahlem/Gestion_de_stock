@@ -10,7 +10,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static com.mycompany.article.article.utils.Constants.APP_ROOT;
-@Api(APP_ROOT + "/commandesclients")
+
+@Api("/commandesclients")
 public interface CommandeClientApi {
 
 

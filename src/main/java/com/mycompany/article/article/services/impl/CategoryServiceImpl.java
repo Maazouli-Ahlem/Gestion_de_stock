@@ -1,10 +1,13 @@
 package com.mycompany.article.article.services.impl;
 
+import com.mycompany.article.article.Repository.ArticleRepository;
 import com.mycompany.article.article.Repository.CategoryRepository;
 import com.mycompany.article.article.dto.CategoryDto;
 import com.mycompany.article.article.exception.EntityNotFoundException;
 import com.mycompany.article.article.exception.ErrorCodes;
 import com.mycompany.article.article.exception.InvalidEntityException;
+import com.mycompany.article.article.exception.InvalidOperationException;
+import com.mycompany.article.article.model.Article;
 import com.mycompany.article.article.model.Category;
 import com.mycompany.article.article.services.CategoryService;
 import com.mycompany.article.article.validator.CategoryValidator;
@@ -20,10 +23,13 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CategoryServiceImpl implements CategoryService {
      private CategoryRepository categoryRepository;
+    private ArticleRepository articleRepository;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository, ArticleRepository articleRepository) {
 
         this.categoryRepository = categoryRepository;
+        this.articleRepository = articleRepository;
+
     }
 
     @Override
@@ -33,8 +39,9 @@ public class CategoryServiceImpl implements CategoryService {
             log.error("Category is not valid {}", categoryDto);
             throw new InvalidEntityException("La categorie n'est pas valid", ErrorCodes.CATEGORY_NOT_VALID, errors);
         }
-        return CategoryDto.fromEntity(categoryRepository.save(CategoryDto.toEntity(categoryDto)));
-    }
+        return CategoryDto.fromEntity(
+                categoryRepository.save(CategoryDto.toEntity(categoryDto))
+        );    }
 
     @Override
     public CategoryDto findById(Integer id) {
@@ -46,7 +53,7 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findById(id)
                 .map(CategoryDto::fromEntity)
                 .orElseThrow(()-> new EntityNotFoundException("Aucune categorie avec l'ID = "+ id +
-                        "n'est trouvee dans la BD", ErrorCodes.CATEGORY_NOT_FOUND));
+                        " n'est trouvee dans la BD", ErrorCodes.CATEGORY_NOT_FOUND));
     }
 
     @Override
@@ -73,6 +80,12 @@ public class CategoryServiceImpl implements CategoryService {
         if (id == null){
             log.error("Category ID is null");
             return ;
+        }
+
+        List<Article> articles = articleRepository.findAllByCategoryId(id);
+        if (!articles.isEmpty()) {
+            throw new InvalidOperationException("Impossible de supprimer cette categorie qui est deja utilise",
+                    ErrorCodes.CATEGORY_ALREADY_IN_USE);
         }
         categoryRepository.deleteById(id);
     }

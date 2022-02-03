@@ -53,6 +53,11 @@ public class CommandeClientServiceImpl implements CommandeClientService {
             log.error("Commande client n'est pas valid");
             throw new InvalidEntityException("La commande Client n'est pas valid", ErrorCodes.COMMANDE_CLIENT_NOT_VALID, errors);
         }
+
+        if (commandeClientDto.getId() != null && commandeClientDto.isCommandeLivree()) {
+            throw new InvalidOperationException("Impossible de modifier la commande lorsqu'elle est livree", ErrorCodes.COMMANDE_CLIENT_NON_MODIFIABLE);
+        }
+
         Optional<Client> client = clientRepository.findById(commandeClientDto.getClient().getId());
         if(!client.isPresent()){
             log.warn("Client with ID {} was not found in the DB ", commandeClientDto.getClient().getId());
@@ -80,14 +85,20 @@ public class CommandeClientServiceImpl implements CommandeClientService {
             log.warn("Article n'existe pas");
             throw new InvalidEntityException("Article n'existe pas dans la BD", ErrorCodes.ARTICLE_NOT_FOUND, articleErrors);
         }
+        commandeClientDto.setDateCommande(Instant.now());
+        CommandeClient savedCmdClt = commandeClientRepository.save(CommandeClientDto.toEntity(commandeClientDto));
 
-       CommandeClient savedCmdClient = commandeClientRepository.save(CommandeClientDto.toEntity(commandeClientDto));
-        commandeClientDto.getLigneCommandeClients().forEach(ligcmClt-> {
-            LigneCommandeClient ligneCommandeClient = LigneCommandeClientDto.toEntity(ligcmClt);
-            ligneCommandeClient.setCommandeClient(savedCmdClient);
-            ligneCommandeClientRepository.save(ligneCommandeClient);
-        });
-        return CommandeClientDto.fromEntity(savedCmdClient);
+        if (commandeClientDto.getLigneCommandeClients() != null) {
+            commandeClientDto.getLigneCommandeClients().forEach(ligCmdClt -> {
+                LigneCommandeClient ligneCommandeClient = LigneCommandeClientDto.toEntity(ligCmdClt);
+                ligneCommandeClient.setCommandeClient(savedCmdClt);
+                ligneCommandeClient.setIdEntreprise(commandeClientDto.getIdEntreprise());
+                LigneCommandeClient savedLigneCmd = ligneCommandeClientRepository.save(ligneCommandeClient);
+
+                effectuerSortie(savedLigneCmd);
+            });
+        }
+        return CommandeClientDto.fromEntity(savedCmdClt);
     }
 
     @Override
@@ -129,6 +140,12 @@ public class CommandeClientServiceImpl implements CommandeClientService {
         if (id == null){
             log.error("Commande client ID is NULL");
             return ;
+        }
+
+        List<LigneCommandeClient> ligneCommandeClients = ligneCommandeClientRepository.findAllByCommandeClientId(id);
+        if (!ligneCommandeClients.isEmpty()) {
+            throw new InvalidOperationException("Impossible de supprimer une commande client deja utilisee",
+                    ErrorCodes.COMMANDE_CLIENT_ALREADY_IN_USE);
         }
         commandeClientRepository.deleteById(id);
     }

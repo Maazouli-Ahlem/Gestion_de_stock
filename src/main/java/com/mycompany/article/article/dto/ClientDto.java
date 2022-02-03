@@ -19,9 +19,11 @@ public class ClientDto {
     private String email;
     private String numTel;
     private Integer idEntreprise;
+    private AddressDto adresse;
+
     @JsonIgnore
     private List<CommandeClientDto> commandeClients;
-    private AddressDto adresse;
+
 
     public static ClientDto fromEntity(Client client){
         if (client == null){
@@ -51,6 +53,7 @@ public class ClientDto {
         client.setPhoto(clientDto.getPhoto());
         client.setEmail(clientDto.getEmail());
         client.setNumTel(clientDto.getNumTel());
+        client.setIdEntreprise(clientDto.getIdEntreprise());
         return client;
     }
 }

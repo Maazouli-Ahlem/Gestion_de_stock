@@ -1,5 +1,6 @@
 package com.mycompany.article.article.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mycompany.article.article.model.Roles;
 import com.mycompany.article.article.model.Utilisateur;
 import lombok.Builder;
@@ -12,8 +13,9 @@ public class RolesDto {
 
     private Integer id;
     private String roleName;
+
+    @JsonIgnore
     private UtilisateurDto utilisateur;
-    private Integer idEntreprise;
 
 
     public static RolesDto fromEntity(Roles roles) {
@@ -23,7 +25,6 @@ public class RolesDto {
         return RolesDto.builder()
                 .id(roles.getId())
                 .roleName(roles.getRoleName())
-                .idEntreprise(roles.getIdEntreprise())
                 .build();
     }
 

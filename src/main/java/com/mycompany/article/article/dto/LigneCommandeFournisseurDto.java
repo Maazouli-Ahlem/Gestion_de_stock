@@ -44,6 +44,7 @@ public class LigneCommandeFournisseurDto {
         ligneCommandeFournisseur.setArticle(ArticleDto.toEntity(dto.getArticle()));
         ligneCommandeFournisseur.setPrixUnitaire(dto.getPrixUnitaire());
         ligneCommandeFournisseur.setQuantite(dto.getQuantite());
+        ligneCommandeFournisseur.setIdEntreprise(dto.getIdEntreprise());
         return ligneCommandeFournisseur;
     }
 }

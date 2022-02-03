@@ -19,6 +19,5 @@ public class Roles extends AbstractEntity {
     @JoinColumn(name = "utilisateur_id")
     private Utilisateur utilisateur;
 
-    @Column(name = "idEntreprise")
-    private Integer idEntreprise;
+
 }

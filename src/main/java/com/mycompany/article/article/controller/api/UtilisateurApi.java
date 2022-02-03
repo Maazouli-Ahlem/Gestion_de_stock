@@ -3,25 +3,26 @@ package com.mycompany.article.article.controller.api;
 import com.mycompany.article.article.dto.UtilisateurDto;
 import io.swagger.annotations.Api;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import static com.mycompany.article.article.utils.Constants.APP_ROOT;
+import static com.mycompany.article.article.utils.Constants.UTILISATEUR_ENDPOINT;
 
-@Api(APP_ROOT +"/utilisateurs")
+@Api("/utilisateurs")
 public interface UtilisateurApi {
 
-    @PostMapping(value = APP_ROOT + "/utilisateur/create",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    UtilisateurDto save (UtilisateurDto utilisateurDto);
+    @PostMapping(value = UTILISATEUR_ENDPOINT + "/create")
+    UtilisateurDto save (@RequestBody UtilisateurDto utilisateurDto);
 
-    @GetMapping(value = APP_ROOT+ "/utilisateur/{idUtilisateur}", produces = MediaType.APPLICATION_JSON_VALUE)
-    UtilisateurDto findById(Integer id);
+    @GetMapping(value = UTILISATEUR_ENDPOINT + "/{idUtilisateur}", produces = MediaType.APPLICATION_JSON_VALUE)
+    UtilisateurDto findById(@PathVariable("idUtilisateur") Integer id);
 
-    @GetMapping(value = APP_ROOT+ "/utilisateur/{all}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(UTILISATEUR_ENDPOINT + "/find/{email}")
+    UtilisateurDto findByEmail(@PathVariable("email") String email);
+
+    @GetMapping(value = UTILISATEUR_ENDPOINT + "/all")
     List<UtilisateurDto> findAll();
 
-    @DeleteMapping(value = APP_ROOT+ "/utilisateur/delete/{idUtilisateur}")
-    void delete (Integer id);
+    @DeleteMapping(value = UTILISATEUR_ENDPOINT + "/delete/{idUtilisateur}")
+    void delete (@PathVariable("idUtilisateur") Integer id);
 }

@@ -21,7 +21,7 @@ public class CommandeFournisseur extends AbstractEntity{
     private Instant dateCommande;
 
     @ManyToOne
-    @JoinColumn(name = "fournisseur_id")
+    @JoinColumn(name = "idFournisseur")
     private Fournisseur fournisseur;
 
     @OneToMany(mappedBy = "commandeFournisseur")

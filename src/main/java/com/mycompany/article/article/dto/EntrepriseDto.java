@@ -1,5 +1,6 @@
 package com.mycompany.article.article.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mycompany.article.article.model.Address;
 import com.mycompany.article.article.model.Entreprise;
 import lombok.Builder;
@@ -20,6 +21,8 @@ public class EntrepriseDto {
     private String email;
     private String numTel;
     private String siteWeb;
+
+    @JsonIgnore
     private List<UtilisateurDto> utilisateurs;
 
 

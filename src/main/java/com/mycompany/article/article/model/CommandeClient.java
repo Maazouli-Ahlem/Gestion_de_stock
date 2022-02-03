@@ -28,7 +28,7 @@ public class CommandeClient extends AbstractEntity {
     private EtatCommande etatCommande;
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "icClient")
     private Client client;
 
     @Column(name = "idEntreprise")

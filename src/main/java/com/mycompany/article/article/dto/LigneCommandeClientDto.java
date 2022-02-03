@@ -1,5 +1,6 @@
 package com.mycompany.article.article.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mycompany.article.article.model.Article;
 import com.mycompany.article.article.model.CommandeClient;
 import com.mycompany.article.article.model.LigneCommandeClient;
@@ -15,6 +16,7 @@ public class LigneCommandeClientDto {
 
     private Integer id;
     private ArticleDto article;
+    @JsonIgnore
     private CommandeClientDto commandeClient;
     private BigDecimal quantite;
     private BigDecimal prixUnitaire;
@@ -44,6 +46,7 @@ public class LigneCommandeClientDto {
         ligneCommandeClient.setArticle(ArticleDto.toEntity(dto.getArticle()));
         ligneCommandeClient.setPrixUnitaire(dto.getPrixUnitaire());
         ligneCommandeClient.setQuantite(dto.getQuantite());
+        ligneCommandeClient.setIdEntreprise(dto.getIdEntreprise());
         return ligneCommandeClient;
     }
 }

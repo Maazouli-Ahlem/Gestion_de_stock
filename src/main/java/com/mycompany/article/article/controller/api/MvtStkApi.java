@@ -1,6 +1,7 @@
 package com.mycompany.article.article.controller.api;
 
 import com.mycompany.article.article.dto.MvtStkDto;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static com.mycompany.article.article.utils.Constants.APP_ROOT;
-
+@Api("mvtstk")
 public interface MvtStkApi {
     @GetMapping(APP_ROOT + "/mvtstk/stockreel/{idArticle}")
     BigDecimal stockReelArticle(@PathVariable("idArticle") Integer idArticle);

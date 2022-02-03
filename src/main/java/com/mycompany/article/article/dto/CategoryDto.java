@@ -43,6 +43,7 @@ public class CategoryDto {
         category.setId(categoryDto.getId());
         category.setCode(categoryDto.getCode());
         category.setDesignation(categoryDto.getDesignation());
+        category.setIdEntreprise(categoryDto.getIdEntreprise());
 
         return category;
 

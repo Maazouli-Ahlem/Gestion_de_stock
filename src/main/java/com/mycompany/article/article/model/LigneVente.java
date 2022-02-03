@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 public class LigneVente extends AbstractEntity {
 
     @ManyToOne
-    @JoinColumn(name = "vente_id")
+    @JoinColumn(name = "idVente")
     private Ventes ventes;
 
     @Column(name = "quantite")
@@ -27,6 +27,6 @@ public class LigneVente extends AbstractEntity {
     private Integer idEntreprise;
 
     @ManyToOne
-    @JoinColumn(name = "idarticle")
+    @JoinColumn(name = "idArticle")
     private Article article;
 }

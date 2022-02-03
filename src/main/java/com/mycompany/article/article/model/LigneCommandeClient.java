@@ -13,11 +13,11 @@ import java.math.BigDecimal;
 @Table(name = "ligneCommandeClient")
 public class LigneCommandeClient extends AbstractEntity {
     @ManyToOne
-    @JoinColumn(name = "article_id")
+    @JoinColumn(name = "idArticle")
     private Article article;
 
     @ManyToOne
-    @JoinColumn(name = "commandeClient_id")
+    @JoinColumn(name = "idCommandeClient")
     private CommandeClient commandeClient;
 
     @Column(name = "quantite")

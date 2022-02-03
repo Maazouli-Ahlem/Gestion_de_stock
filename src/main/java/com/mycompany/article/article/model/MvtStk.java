@@ -15,7 +15,7 @@ import java.time.Instant;
 public class MvtStk extends AbstractEntity {
 
     @ManyToOne
-    @JoinColumn(name = "article_id")
+    @JoinColumn(name = "idArticle")
     private Article article;
 
     @Column(name = "dateMvt")
@@ -26,6 +26,7 @@ public class MvtStk extends AbstractEntity {
 
     @Column(name = "typeMvtStk")
     private TypeMvtStk typeMvtStk;
+
     @Column(name = "sourcemvt")
     @Enumerated(EnumType.STRING)
     private SourceMvtStk sourceMvt;

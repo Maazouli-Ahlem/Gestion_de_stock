@@ -1,6 +1,7 @@
 package com.mycompany.article.article.interceptor;
 
 import org.hibernate.EmptyInterceptor;
+import org.slf4j.MDC;
 import org.springframework.util.StringUtils;
 
 import java.util.Locale;
@@ -10,13 +11,24 @@ public class interceptor extends EmptyInterceptor {
     @Override
     public String onPrepareStatement(String sql) {
         if (StringUtils.hasLength(sql) && sql.toLowerCase().startsWith("select")){
-            if(sql.contains("where")){
-                sql = sql + "idEntreprise = 1";
-            } else
-            {
-                sql = sql + "where idEntreprise = 1";
 
+            final String entityName = sql.substring(7, sql.indexOf("."));
+            final String idEntreprise = MDC.get("idEntreprise");
+
+            if (StringUtils.hasLength(entityName)
+                && !entityName.toLowerCase().contains("entreprise")
+            && !entityName.toLowerCase().contains("roles")
+            && StringUtils.hasLength(idEntreprise)){
+                if(sql.contains("where")){
+                    sql = sql + "and" + entityName + ".idEntreprise = " + idEntreprise;
+                } else
+                {
+                    sql = sql + "where " + entityName + "idEntreprise = " + idEntreprise ;
+
+                }
             }
+
+
 
         }
         return super.onPrepareStatement(sql);

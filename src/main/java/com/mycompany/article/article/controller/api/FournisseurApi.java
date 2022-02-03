@@ -3,24 +3,24 @@ package com.mycompany.article.article.controller.api;
 import com.mycompany.article.article.dto.FournisseurDto;
 import io.swagger.annotations.Api;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import static com.mycompany.article.article.utils.Constants.APP_ROOT;
-@Api(APP_ROOT +"/fournisseurs")
+import static com.mycompany.article.article.utils.Constants.FOURNISSEUR_ENDPOINT;
+
+@Api("/fournisseurs")
 public interface FournisseurApi {
 
-    @PostMapping(value = APP_ROOT + "/fournisseur/create",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    FournisseurDto save (FournisseurDto fournisseurDto);
+    @PostMapping(value = FOURNISSEUR_ENDPOINT + "/create")
+    FournisseurDto save (@RequestBody FournisseurDto fournisseurDto);
 
-    @GetMapping(value = APP_ROOT+ "/fournisseur/{idFournisseur}", produces = MediaType.APPLICATION_JSON_VALUE)
-    FournisseurDto findById(Integer id);
+    @GetMapping(value = FOURNISSEUR_ENDPOINT + "/{idFournisseur}")
+    FournisseurDto findById(@PathVariable("idFournisseur") Integer id);
 
-    @GetMapping(value = APP_ROOT+ "/fournisseur/{all}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = FOURNISSEUR_ENDPOINT + "/all")
     List<FournisseurDto> findAll();
 
-    @DeleteMapping(value = APP_ROOT+ "/fournisseur/delete/{idFournisseur}")
-    void delete (Integer id);
+    @DeleteMapping(value = FOURNISSEUR_ENDPOINT + "/delete/{idFournisseur}")
+    void delete (@PathVariable("idFournisseur") Integer id);
 }

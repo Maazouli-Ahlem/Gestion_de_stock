@@ -6,7 +6,7 @@ import com.mycompany.article.article.dto.CategoryDto;
 import java.util.List;
 
 public interface CategoryService {
-    CategoryDto save (CategoryDto categoryDto);
+    CategoryDto save(CategoryDto categoryDto);
 
     CategoryDto findById(Integer id);
 
@@ -14,5 +14,5 @@ public interface CategoryService {
 
     List<CategoryDto> findAll();
 
-    void delete (Integer id);
+    void delete(Integer id);
 }

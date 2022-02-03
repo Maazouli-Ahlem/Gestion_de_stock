@@ -15,11 +15,11 @@ import java.util.List;
 public class LigneCommandeFournisseur extends AbstractEntity {
 
     @ManyToOne
-    @JoinColumn(name = "article_id")
+    @JoinColumn(name = "idArticle")
     private Article article;
 
     @ManyToOne
-    @JoinColumn(name = "commandeFournisseur_id")
+    @JoinColumn(name = "idCommandeFournisseur")
     private CommandeFournisseur commandeFournisseur;
 
     @Column(name = "quantite")

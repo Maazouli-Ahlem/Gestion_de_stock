@@ -43,6 +43,8 @@ public class LigneVenteDto {
         ligneVente.setVentes(VentesDto.toEntity(dto.getVente()));
         ligneVente.setQuantite(dto.getQuantite());
         ligneVente.setPrixUnitaire(dto.getPrixUnitaire());
+        ligneVente.setIdEntreprise(dto.getIdEntreprise());
+
         return ligneVente;
     }
 

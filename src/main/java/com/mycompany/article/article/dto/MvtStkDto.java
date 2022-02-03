@@ -35,6 +35,7 @@ public class MvtStkDto {
                 .quantite(mvtStk.getQuantite())
                 .typeMvtStk(mvtStk.getTypeMvtStk())
                 .idEntreprise(mvtStk.getIdEntreprise())
+                .sourceMvt(mvtStk.getSourceMvt())
                 .build();
     }
 
@@ -48,6 +49,9 @@ public class MvtStkDto {
         mvtStk.setDateMvt(dto.getDateMvt());
         mvtStk.setQuantite(dto.getQuantite());
         mvtStk.setTypeMvtStk(dto.getTypeMvtStk());
+        mvtStk.setIdEntreprise(dto.getIdEntreprise());
+        mvtStk.setSourceMvt(dto.getSourceMvt());
+
         return mvtStk;
     }
 }

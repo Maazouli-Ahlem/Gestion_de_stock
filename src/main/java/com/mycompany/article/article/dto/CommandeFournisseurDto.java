@@ -48,6 +48,7 @@ public class CommandeFournisseurDto {
         commandeFournisseur.setDateCommande(dto.getDateCommande());
         commandeFournisseur.setFournisseur(FournisseurDto.toEntity(dto.getFournisseur()));
         commandeFournisseur.setEtatCommande(dto.getEtatCommande());
+        commandeFournisseur.setIdEntreprise(dto.getIdEntreprise());
         return commandeFournisseur;
     }
     public boolean isCommandeLivree() {

@@ -2,6 +2,9 @@ package com.mycompany.article.article.controller;
 
 import com.mycompany.article.article.controller.api.ArticleApi;
 import com.mycompany.article.article.dto.ArticleDto;
+import com.mycompany.article.article.dto.LigneCommandeClientDto;
+import com.mycompany.article.article.dto.LigneCommandeFournisseurDto;
+import com.mycompany.article.article.dto.LigneVenteDto;
 import com.mycompany.article.article.services.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +38,26 @@ public class ArticleController implements ArticleApi {
     @Override
     public List<ArticleDto> findAll() {
         return articleService.findAll();
+    }
+
+    @Override
+    public List<LigneVenteDto> findHistoriqueVentes(Integer idArticle) {
+        return articleService.findHistoriqueVentes(idArticle);
+    }
+
+    @Override
+    public List<LigneCommandeClientDto> findHistoriqueCommandeCLient(Integer idArticle) {
+        return articleService.findHistoriqueCommandeCLient(idArticle);
+    }
+
+    @Override
+    public List<LigneCommandeFournisseurDto> findHistoriqueCommandeFournisseur(Integer idArticle) {
+        return articleService.findHistoriqueCommandeFournisseur(idArticle);
+    }
+
+    @Override
+    public List<ArticleDto> findAllArticleByIdCategory(Integer idCategory) {
+        return articleService.findAllArticleByIdCategory(idCategory);
     }
 
     @Override

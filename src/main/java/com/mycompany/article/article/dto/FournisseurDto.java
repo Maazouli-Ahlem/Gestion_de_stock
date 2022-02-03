@@ -1,5 +1,6 @@
 package com.mycompany.article.article.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mycompany.article.article.model.Address;
 import com.mycompany.article.article.model.CommandeFournisseur;
 import com.mycompany.article.article.model.Fournisseur;
@@ -19,9 +20,11 @@ public class FournisseurDto {
     private String photo;
     private String email;
     private String numTel;
-    private List<CommandeFournisseurDto> commandeFournisseursDto;
     private AddressDto address;
     private Integer idEntreprise;
+
+    @JsonIgnore
+    private List<CommandeFournisseurDto> commandeFournisseursDto;
 
 
     public static FournisseurDto fromEntity(Fournisseur fournisseur) {
@@ -52,6 +55,7 @@ public class FournisseurDto {
         fournisseur.setPhoto(dto.getPhoto());
         fournisseur.setEmail(dto.getEmail());
         fournisseur.setNumTel(dto.getNumTel());
+        fournisseur.setIdEntreprise(dto.getIdEntreprise());
 
         return fournisseur;
     }

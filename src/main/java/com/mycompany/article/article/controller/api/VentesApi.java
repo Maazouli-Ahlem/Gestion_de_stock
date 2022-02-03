@@ -8,7 +8,7 @@ import java.util.List;
 
 import static com.mycompany.article.article.utils.Constants.APP_ROOT;
 import static com.mycompany.article.article.utils.Constants.VENTES_ENDPOINT;
-@Api(APP_ROOT +"/ventes")
+@Api("/ventes")
 public interface VentesApi {
 
     @PostMapping(VENTES_ENDPOINT + "/create")

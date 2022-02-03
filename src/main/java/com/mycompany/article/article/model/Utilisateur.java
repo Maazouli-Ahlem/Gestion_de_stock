@@ -1,5 +1,6 @@
 package com.mycompany.article.article.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -36,9 +37,10 @@ public class Utilisateur extends AbstractEntity {
     private Address adresse;
 
     @ManyToOne
-    @JoinColumn(name = "entreprise_id")
+    @JoinColumn(name = "idEntreprise")
     private Entreprise entreprise;
 
-    @OneToMany(mappedBy = "utilisateur")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "utilisateur")
+    @JsonIgnore
     private List<Roles> roles;
 }

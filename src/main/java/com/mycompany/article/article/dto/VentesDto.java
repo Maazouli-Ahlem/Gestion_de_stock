@@ -17,7 +17,6 @@ public class VentesDto {
     private String commentaire;
     private List<LigneVenteDto> ligneVentes;
     private Integer idEntreprise;
-    private ArticleDto article;
 
 
 
@@ -41,6 +40,8 @@ public class VentesDto {
         ventes.setId(dto.getId());
         ventes.setCode(ventes.getCode());
         ventes.setCommentaire(dto.getCommentaire());
+        ventes.setIdEntreprise(dto.getIdEntreprise());
+
         return ventes;
     }
 }
